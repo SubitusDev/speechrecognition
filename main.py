@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 '''
@@ -18,13 +18,26 @@ import os
 from pydub import AudioSegment
 import shutil
 
+print('Iniciando el programa...')
+
+if getattr(sys, 'frozen', False):
+    print('ejecutable')
+    BASE_DIR = sys.executable[:-5]
+else:
+    print('local')
+    BASE_DIR = os.path.dirname(os.path.realpath(__file__))
+
+
 # Ruta de los archivos fuente
-PATH_FILES = './archivos/'
+PATH_FILES = '{}/archivos/'.format(BASE_DIR)
 # Ruta de salida de resultados
-PATH_OUTPUT = './salida/'
+PATH_OUTPUT = '{}/salida/'.format(BASE_DIR)
 
 # Verifica si existe la carpeta de salida sino la crea
 if(not os.path.exists('{}'.format(PATH_OUTPUT))):
+    os.mkdir(PATH_OUTPUT)
+else:
+    shutil.rmtree(PATH_OUTPUT)
     os.mkdir(PATH_OUTPUT)
 
 # Se inicializa el reconocimiento de voz
@@ -55,10 +68,9 @@ for index, row in df.iterrows():
                 generador_diferencia = difflib.ndiff(texto_free.splitlines(), text.lower().strip().splitlines())
                 difference = difflib.HtmlDiff(tabsize=2, wrapcolumn=50)
                 with open("{}diff {}.html".format(PATH_OUTPUT, row['Nombre']), "w") as fp:
-                    html = difference.make_file(fromlines=texto_free.splitlines(), tolines=text.lower().strip().splitlines(), fromdesc="Original", todesc="Modified")
+                    html = difference.make_file(fromlines=texto_free.splitlines(), tolines=text.lower().strip().splitlines(), fromdesc="Guión", todesc="Audio del locutor")
                     fp.write(html)
-            shutil.copyfile(path_audio, "{}{}.wav".format(PATH_OUTPUT, row['Nombre']))
-            song = AudioSegment.from_wav("{}{}.wav".format(PATH_OUTPUT, row['Nombre']))
+            song = AudioSegment.from_wav(path_audio)
             song.export("{}{}.mp3".format(PATH_OUTPUT, row['Nombre']), format="mp3")
         except Exception as e:
             print('Error el cargar el audio: {}'.format(e))
