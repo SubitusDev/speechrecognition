@@ -1,8 +1,9 @@
 # speechrecognition
 
 Programa para corroborar que los audios enviados por el locutor sean correctos.
+
 ```bash
-main.exe
+  |_ speech.sh
   |
   |_ archivos
     |
@@ -13,4 +14,9 @@ main.exe
     |_ ...
     |_ audio10.wav
 ```
-          
+
+Para ejecutar es necesario ingresar el comando:
+
+```bash
+./speech.sh
+```
