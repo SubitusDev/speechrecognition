@@ -78,7 +78,7 @@ for index, row in df.iterrows():
         sound = AudioSegment.from_mp3("{}{}.mp3".format(PATH_FILES,row['Nombre']))
         sound.export("{}{}.wav".format(PATH_FILES,row['Nombre']), format="wav")
     path_audio = '{}{}.wav'.format(PATH_FILES,row['Nombre'])
-    info_csv.append(path_audio)
+    info_csv.append(row['Nombre'])
     print('Buscando el audio: {}'.format(path_audio))  
     if(os.path.exists('{}'.format(path_audio))):
         print('Analizando el audio...\n\n')
@@ -91,8 +91,8 @@ for index, row in df.iterrows():
             texto_free = row['Texto'].replace(',','').replace('.','').replace(':','').replace('(','').replace(')','').lower().strip()
             concordancia = fuzz.ratio(texto_free, text.lower())
             info_csv.append(concordancia)
-            print('La concordacia es del: {}'.format(concordancia))
-            if concordancia <= 99:
+            print('La concordacia es del: {}%'.format(concordancia))
+            if concordancia <= 98:
                 generador_diferencia = difflib.ndiff(texto_free.splitlines(), text.lower().strip().splitlines())
                 difference = difflib.HtmlDiff(tabsize=2, wrapcolumn=50)
                 with open("{}diff {}.html".format(PATH_OUTPUT, row['Nombre']), "w") as fp:
@@ -103,13 +103,13 @@ for index, row in df.iterrows():
         except Exception as e:
             print('Error el cargar el audio: {}'.format(e))
     else:
-        print('No existe el archivo!')
+        print('No existe el archivo')
         info_csv.append('No existe el archivo!')
     csv_file_content.append(info_csv)
     print('=======')
 
 with open('{}relacion.csv'.format(PATH_OUTPUT), mode='w') as csv_file:
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    csv_writer.writerow(['AUDIO','TEXTO ORIGINAL', 'TEXTO DEL AUDIO', 'CONCORDANCIA'])
+    csv_writer.writerow(['Audio','Guión', 'Audio del locutor', 'concordacia'])
     for row in csv_file_content:
         csv_writer.writerow(row)
