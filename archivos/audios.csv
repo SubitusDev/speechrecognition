@@ -1,9 +1,3 @@
 Nombre,Texto
-ZARZA_Audio_7a_ok,"Es momento de examinar los conocimientos previos que tienes sobre SAP Three-Way Match. Lee cuidadosamente la pregunta y selecciona la opción correcta. Haz clic en el botón Retroalimentación para comprobar tu respuesta. Luego, haz clic en Continuar para cambiar de pregunta."
-ZARZA_Audio_8a_ok,Una de las recomendaciones que hemos propuesto es que se marque masivamente este campo en el Registro maestro del proveedor y en el Registro info. Nota: Las actualizaciones masivas solo pueden ser realizadas por el equipo de Soporte de SAP MM.
-ZARZA_Audio_18_ok,"Ya explicamos cómo identificar Registros de facturas (MIRO) sin referencia a entrada de material que desvirtúan el Three-Way Match cómo se hacen las consultas por SAP; aun así, la prueba de auditoría se debe realizar utilizando el reporte “Direct Postings VERSIÓN 8” que se diseñó en BO para identificar las contabilizaciones directas de una forma más eficiente."
-ZARZA_MODULO 2_Audio_21_ok,"Ahora, por SAP – Tabla CDPOS vamos a explicar a cómo identificar las inclusiones de posiciones en la orden de compra."
-ZARZA_MODULO 4_Audio_2_ok,"SAP tiene dos formas de registrar los costos indirectos, estas son:"
-ZARZA_MODULO 4_Audio_11_ok,"Ahora ingresamos a SAP, usamos la transacción ME23N para consultar lo siguiente"
-ZARZA_MODULO 4_Audio_17_ok,Compras costes indirectos de adquisición” (Campo: Tipo de historial = “K Actualización de cuentas”).
-ZARZA_MODULO 5_Audio_4_ok,"Es importante aclarar que la verificación del importe de la factura, SAP lo hace con el importe indicado en el Pedido y si excede el % de Tolerancia establecido en la sociedad genera un mensaje de error. Aunque, en algunos mandantes, se tiene configurado que se permita contabilizar como bloqueado el documento que supera la tolerancia, hasta que sea autorizado o rechazado por el responsable de Finanzas local."
+a1,"Cuando Alejandra se hizo cargo de una de las unidades de negocios, consultaba constantemente a María, su jefa."
+a2,"En varias ocasiones, Alejandra le preguntó a María a dónde creía que se orientaba el departamento, pero María siempre respondía con una sugerencia vaga y le regresaba la pregunta: ¿hacia dónde crees tú que va el departamento?"

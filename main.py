@@ -32,7 +32,7 @@ PATH_FILES = '{}/archivos/'.format(BASE_DIR)
 # Ruta de salida de resultados
 PATH_OUTPUT = '{}/salida/'.format(BASE_DIR)
 
-ACCEPTED_FORMATS = ['wav', 'mp3']
+ACCEPTED_FORMATS = ['wav', 'mp3', 'aif', 'aiff']
 
 print('ruta de los archivos fuentes: {}'.format(PATH_FILES))
 print('ruta de los resultados: {}'.format(PATH_OUTPUT))
@@ -77,6 +77,9 @@ for index, row in df.iterrows():
     if FORMAT_AUDIO == 'mp3':
         sound = AudioSegment.from_mp3("{}{}.mp3".format(PATH_FILES,row['Nombre']))
         sound.export("{}{}.wav".format(PATH_FILES,row['Nombre']), format="wav")
+    if FORMAT_AUDIO == 'aif' or FORMAT_AUDIO == 'aiff':
+        sound = AudioSegment.from_file("{}{}.{}".format(PATH_FILES,row['Nombre'], FORMAT_AUDIO))
+        sound.export("{}{}.wav".format(PATH_FILES,row['Nombre']), format="wav")
     path_audio = '{}{}.wav'.format(PATH_FILES,row['Nombre'])
     info_csv.append(row['Nombre'])
     print('Buscando el audio: {}'.format(path_audio))  
@@ -115,7 +118,7 @@ with open('{}relacion.csv'.format(PATH_OUTPUT), mode='w') as csv_file:
         csv_writer.writerow(row)
 
 #borrar archivos que se crearon el file path
-if FORMAT_AUDIO == 'mp3':
+if FORMAT_AUDIO != 'wav':
     lista_archivos = os.listdir(PATH_FILES)
     lista_archivos = list(filter(lambda x: x.split('.')[-1] == 'wav', lista_archivos))
     for archivo in lista_archivos:
