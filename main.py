@@ -88,7 +88,7 @@ for index, row in df.iterrows():
                 audio = r.record(source)
                 text = r.recognize_google(audio, language='es-MX')
             info_csv.append(text)
-            texto_free = row['Texto'].replace(',','').replace('.','').replace(':','').replace('(','').replace(')','').lower().strip()
+            texto_free = row['Texto'].replace(',','').replace('.','').replace(':','').replace('(','').replace(')','').replace('\n','').replace('“','').replace('“','').replace('–','').lower().strip()
             concordancia = fuzz.ratio(texto_free, text.lower())
             info_csv.append(concordancia)
             print('La concordacia es del: {}%'.format(concordancia))
@@ -113,3 +113,11 @@ with open('{}relacion.csv'.format(PATH_OUTPUT), mode='w') as csv_file:
     csv_writer.writerow(['Audio','Guión', 'Audio del locutor', 'concordacia'])
     for row in csv_file_content:
         csv_writer.writerow(row)
+
+#borrar archivos que se crearon el file path
+if FORMAT_AUDIO == 'mp3':
+    lista_archivos = os.listdir(PATH_FILES)
+    lista_archivos = list(filter(lambda x: x.split('.')[-1] == 'wav', lista_archivos))
+    for archivo in lista_archivos:
+        print('borrando archivo: {}{}'.format(PATH_FILES,archivo))
+        os.remove('{}{}'.format(PATH_FILES,archivo))
